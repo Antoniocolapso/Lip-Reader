@@ -4,12 +4,9 @@
 
 ## Advance Lipreading (Sentence-Level)
 
-- **Project GitHub Link:** [https://github.com/Monkey-D-Coders/Lip-Reader](https://github.com/Monkey-D-Coders/Lip-Reader)
+- **Project GitHub Link:** [https://github.com/Antoniocolapso/Lip-Reader](https://github.com/Antoniocolapso/Lip-Reader)
 
-### Team Members:
-- **Omm Prakash Sahoo (12141190)**
-- **Duruseti Sai Srihan (12140620)**
-- **Nita Bar (12141170)**
+### AUTHOR: **Omm Prakash Sahoo (12141190)**
 
 ---
 
@@ -175,30 +172,6 @@ successfully did and planning to deploy app after giving it some more finishing 
 
 Our lip reading project successfully achieved advanced accuracy levels, reducing mean word and sentence error rates to 1.77% and 0.67%, respectively. The model, trained on a diverse dataset, demonstrated robustness and adaptability. Real-time sentence predictions were realized through the innovative "NeuroSync Lipscape" app, offering accessibility for the hearing-impaired. The unique character-to-integer encoding and data preprocessing techniques significantly contributed to model performance. The proposed Bi-GRU LSTM feature extractor, manual crop for mouth region extraction, and learning rate scheduler enhanced the model's capabilities. The app's user-friendly interface integrates video preview, model input visualization, and detailed predictions. Our collaborative efforts, including individual contributions and constant model monitoring, ensured project success. Overall, our work not only advances lip reading accuracy but also translates research into a practical, real-time solution for improved accessibility.
 
-## Individual Contribution to the Project
 
-### Omm
-- Proposed to use manual crop to extract the mouth region.
-- Proposed to use a dictionary with mapping of every character to an integer.
-- Developed a modified CTC loss function for our model.
-- Proposed to use Bi-GRU for better understanding of the encoding of the used dataset by the model.
-- Contributed to improving model performance by constantly monitoring losses and model performance.
-- Conducted accuracy analysis.
-- Developed a full-stack app for using our model in real life.
-
-### Srihan
-- Proposed to use auto crop using 'cv2.CascadeClassifier' for extracting the mouth region.
-- Developed a Learning rate scheduler.
-- Proposed a model using a classic LSTM feature extractor.
-- Contributed to improving model performance by constantly monitoring losses and model performance.
-- Helped in the development of a full-stack app for using our model in real life.
-
-### Nita
-- Proposed to use 'base64' for encoding and decoding.
-- Proposed to use a pretrained model for better results.
-- Developed a function that predicts over random validation sentences and saves model weights at the end of every epoch.
-- Contributed to improving model performance by constantly monitoring losses and model performance.
-- Helped in the development of a full-stack app for using our model in real life.
-
-[Project GitHub Link](https://github.com/Monkey-D-Coders/Lip-Reader)
+[Project GitHub Link](https://github.com/Antoniocolapso/Lip-Reader)
 
