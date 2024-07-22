@@ -79,13 +79,13 @@ if selected_video:
 
         video, annotations = load_data(tf.convert_to_tensor(file_path))
 
-        animation_path = os.path.join(BASE_DIR, 'animation.gif')
-        # Convert video frames to uint8 and clip values
-        video_frames = [np.clip(frame, 0, 255).astype(np.uint8) for frame in video]
-        # Ensure frames are in RGB format
-        video_frames_rgb = [np.stack([frame, frame, frame], axis=-1) for frame in video_frames] # Convert grayscale to RGB
-        imageio.mimsave(animation_path, video_frames_rgb, fps=10)
-        st.image(animation_path, width=400)
+        # animation_path = os.path.join(BASE_DIR, 'animation.gif')
+        # # Convert video frames to uint8 and clip values
+        # video_frames = [np.clip(frame, 0, 255).astype(np.uint8) for frame in video]
+        # # Ensure frames are in RGB format
+        # video_frames_rgb = [np.stack([frame, frame, frame], axis=-1) for frame in video_frames] # Convert grayscale to RGB
+        # imageio.mimsave(animation_path, video_frames, fps=10)
+        # st.image(animation_path, width=400)
 
         st.info('This is the output of the machine learning model as tokens')
         model = load_model()
