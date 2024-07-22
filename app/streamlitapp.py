@@ -34,31 +34,41 @@ if not os.path.exists(data_dir):
 
 # Generating a list of options or videos 
 options = os.listdir(data_dir)
+if not options:
+    raise FileNotFoundError(f"No video files found in directory {data_dir}. Please check the path.")
+
 selected_video = st.selectbox('Choose video', options)
 
 # Generate two columns 
 col1, col2 = st.columns(2)
 
-if options: 
+if selected_video: 
     # Rendering the video 
     with col1: 
         st.info('The video below displays the converted video in mp4 format')
         file_path = os.path.join(data_dir, selected_video)
+        output_video_path = os.path.join(BASE_DIR, 'test_video.mp4')
+        ffmpeg_command = f'ffmpeg -i {file_path} -vcodec libx264 {output_video_path} -y'
+        
         try:
-            os.system(f'ffmpeg -i {file_path} -vcodec libx264 test_video.mp4 -y')
-        except:
-            print("Error in ffmpeg conversion")
+            os.system(ffmpeg_command)
+            if not os.path.exists(output_video_path):
+                raise FileNotFoundError(f"ffmpeg did not create the output file {output_video_path}.")
+        except Exception as e:
+            st.error(f"Error during ffmpeg conversion: {e}")
+            raise e
 
         # Rendering inside of the app
-        video = open('test_video.mp4', 'rb') 
-        video_bytes = video.read() 
-        st.video(video_bytes)
+        with open(output_video_path, 'rb') as video_file:
+            video_bytes = video_file.read() 
+            st.video(video_bytes)
 
     with col2: 
         st.info('This is all the machine learning model sees when making a prediction')
         video, annotations = load_data(tf.convert_to_tensor(file_path))
-        imageio.mimsave('animation.gif', video, fps=10)
-        st.image('animation.gif', width=400) 
+        animation_path = os.path.join(BASE_DIR, 'animation.gif')
+        imageio.mimsave(animation_path, video, fps=10)
+        st.image(animation_path, width=400) 
 
         st.info('This is the output of the machine learning model as tokens')
         model = load_model()
@@ -69,4 +79,4 @@ if options:
         # Convert prediction to text
         st.info('Decode the raw tokens into words')
         converted_prediction = tf.strings.reduce_join(num_to_char(decoder)).numpy().decode('utf-8')
-        st.text(converted_prediction)  
+        st.text(converted_prediction)
