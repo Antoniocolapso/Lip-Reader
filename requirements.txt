@@ -3,4 +3,5 @@ imageio
 tensorflow
 numpy
 opencv-python-headless
-
+Pillow
+ffmpeg-python
