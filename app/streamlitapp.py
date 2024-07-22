@@ -67,7 +67,10 @@ if selected_video:
         st.info('This is all the machine learning model sees when making a prediction')
         
         # Assume alignment path is in the same directory as the video file but with a different extension
-        alignment_path = os.path.splitext(file_path)[0] + '.align'
+        z=os.path.splitext(file_path)[0] 
+        l=z.split("/")
+        
+        alignment_path = "".join("/"+l[i] for i in range (1,len(l)-2))+"/alignments"+"".join("/"+l[i] for i in range (len(l)-2,len(l)))+".align"
         
         print(f"Alignment path: {alignment_path}")
 
