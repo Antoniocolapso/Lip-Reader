@@ -65,7 +65,17 @@ if selected_video:
 
     with col2: 
         st.info('This is all the machine learning model sees when making a prediction')
+        
+        # Assume alignment path is in the same directory as the video file but with a different extension
+        alignment_path = os.path.splitext(file_path)[0] + '.align'
+        
+        print(f"Alignment path: {alignment_path}")
+
+        if not os.path.exists(alignment_path):
+            raise FileNotFoundError(f"Alignment file {alignment_path} does not exist. Please check the path.")
+
         video, annotations = load_data(tf.convert_to_tensor(file_path))
+
         animation_path = os.path.join(BASE_DIR, 'animation.gif')
         imageio.mimsave(animation_path, video, fps=10)
         st.image(animation_path, width=400) 
