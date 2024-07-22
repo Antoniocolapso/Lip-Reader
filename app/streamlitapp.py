@@ -1,12 +1,13 @@
+# Import all of the dependencies
 import streamlit as st
-import os 
-import imageio 
+import os
+import imageio
 import numpy as np
-import tensorflow as tf 
+import tensorflow as tf
 from utils import load_data, num_to_char
 from modelutil import load_model
 
-# Disable all GPUs
+# Disable all GPUS
 tf.config.set_visible_devices([], 'GPU')
 
 # Set the layout to the streamlit app as wide 
@@ -69,9 +70,7 @@ if selected_video:
         # Assume alignment path is in the same directory as the video file but with a different extension
         z = os.path.splitext(file_path)[0] 
         l = z.split("/")
-        alignment_path = os.path.join(
-            BASE_DIR, '..', 'data', 'alignments', 's1', f'{l[-1]}.align'
-        )
+        alignment_path = "".join("/" + l[i] for i in range(1, len(l) - 2)) + "/alignments" + "".join("/" + l[i] for i in range(len(l) - 2, len(l))) + ".align"
         
         print(f"Alignment path: {alignment_path}")
 
@@ -83,14 +82,9 @@ if selected_video:
         animation_path = os.path.join(BASE_DIR, 'animation.gif')
         # Convert video frames to uint8 and clip values
         video_frames = [np.clip(frame, 0, 255).astype(np.uint8) for frame in video]
-        # Ensure frames are RGB
-        video_frames = [np.stack([frame, frame, frame], axis=-1) if frame.ndim == 2 else frame for frame in video_frames]
-
-        # Debug output to verify the frame properties
-        for i, frame in enumerate(video_frames):
-            print(f"Frame {i} shape: {frame.shape}, dtype: {frame.dtype}")
-
-        imageio.mimsave(animation_path, video_frames, fps=10)
+        # Ensure frames are in RGB format
+        video_frames_rgb = [np.stack([frame, frame, frame], axis=-1) for frame in video_frames] # Convert grayscale to RGB
+        imageio.mimsave(animation_path, video_frames_rgb, fps=10)
         st.image(animation_path, width=400)
 
         st.info('This is the output of the machine learning model as tokens')
