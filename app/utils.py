@@ -713,15 +713,38 @@ def load_alignments(path:str) -> List[str]:
         if line[2] != 'sil': 
             tokens = [*tokens,' ',line[2]]
     return char_to_num(tf.reshape(tf.strings.unicode_split(tokens, input_encoding='UTF-8'), (-1)))[1:]
-
 def load_data(path: str): 
     path = bytes.decode(path.numpy())
-    file_name = path.split('/')[-1].split('.')[0]
-    # File name splitting for windows
-    file_name = path.split('\\')[-1].split('.')[0]
-    video_path = os.path.join('..','data','s1',f'{file_name}.mpg')
-    alignment_path = os.path.join('..','data','alignments','s1',f'{file_name}.align')
-    frames = load_video(video_path) 
+    file_name = os.path.splitext(os.path.basename(path))[0]
+    
+    # Define the base directories
+    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    data_dir = os.path.abspath(os.path.join(BASE_DIR, '..', 'data', 's1'))
+    alignment_dir = os.path.abspath(os.path.join(BASE_DIR, '..', 'data', 'alignments', 's1'))
+
+    # Construct the full paths
+    video_path = os.path.join(data_dir, f'{file_name}.mpg')
+    alignment_path = os.path.join(alignment_dir, f'{file_name}.align')
+
+    # Check if the files exist
+    if not os.path.exists(video_path):
+        raise FileNotFoundError(f"Video file {video_path} does not exist.")
+    if not os.path.exists(alignment_path):
+        raise FileNotFoundError(f"Alignment file {alignment_path} does not exist.")
+    
+    frames = load_video(video_path)
     alignments = load_alignments(alignment_path)
     
     return frames, alignments
+
+# def load_data(path: str): 
+#     path = bytes.decode(path.numpy())
+#     file_name = path.split('/')[-1].split('.')[0]
+#     # File name splitting for windows
+#     file_name = path.split('\\')[-1].split('.')[0]
+#     video_path = os.path.join('..','data','s1',f'{file_name}.mpg')
+#     alignment_path = os.path.join('..','data','alignments','s1',f'{file_name}.align')
+#     frames = load_video(video_path) 
+#     alignments = load_alignments(alignment_path)
+    
+#     return frames, alignments
