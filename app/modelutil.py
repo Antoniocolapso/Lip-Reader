@@ -1,6 +1,11 @@
 import os 
+import tensorflow as tf
 from tensorflow.keras.models import Sequential 
 from tensorflow.keras.layers import Conv3D, LSTM, Dense, Dropout, Bidirectional, MaxPool3D, Activation, Reshape, SpatialDropout3D, BatchNormalization, TimeDistributed, Flatten
+
+
+# Disable all GPUS
+tf.config.set_visible_devices([], 'GPU')
 
 def load_model() -> Sequential: 
     model = Sequential()
