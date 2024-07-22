@@ -22,7 +22,7 @@ st.title('NeuroSync Lipscape Full Stack App')
 
 # Determine the base directory
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-data_dir = os.path.join(BASE_DIR, '..', 'data', 's1')
+data_dir = os.path.abspath(os.path.join(BASE_DIR, '..', 'data', 's1'))
 
 # Print the current working directory for debugging
 print(f"Current working directory: {os.getcwd()}")
