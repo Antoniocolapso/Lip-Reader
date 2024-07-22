@@ -6,7 +6,8 @@ import imageio
 import tensorflow as tf 
 from utils import load_data, num_to_char
 from modelutil import load_model
-
+# Disable all GPUS
+tf.config.set_visible_devices([], 'GPU')
 # Set the layout to the streamlit app as wide 
 st.set_page_config(layout='wide')
 
