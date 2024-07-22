@@ -3,4 +3,4 @@ imageio
 tensorflow
 numpy
 opencv-python
-libgl1-mesa-glx
+
