@@ -1,4 +1,3 @@
-# Import all of the dependencies
 import streamlit as st
 import os 
 import imageio 
@@ -84,6 +83,13 @@ if selected_video:
         animation_path = os.path.join(BASE_DIR, 'animation.gif')
         # Convert video frames to uint8 and clip values
         video_frames = [np.clip(frame, 0, 255).astype(np.uint8) for frame in video]
+        # Ensure frames are RGB
+        video_frames = [np.stack([frame, frame, frame], axis=-1) if frame.ndim == 2 else frame for frame in video_frames]
+
+        # Debug output to verify the frame properties
+        for i, frame in enumerate(video_frames):
+            print(f"Frame {i} shape: {frame.shape}, dtype: {frame.dtype}")
+
         imageio.mimsave(animation_path, video_frames, fps=10)
         st.image(animation_path, width=400)
 
