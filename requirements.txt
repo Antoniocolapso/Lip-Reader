@@ -2,5 +2,5 @@ streamlit
 imageio
 tensorflow
 numpy
-opencv-python
+opencv-python-headless
 
