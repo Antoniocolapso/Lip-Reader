@@ -28,6 +28,10 @@ import heapq
 import itertools
 
 
+# Disable all GPUS
+tf.config.set_visible_devices([], 'GPU')
+
+
 def vsInput():
     sys.stdin = open('inputf.in', 'r')
     sys.stdout = open('outputf.out', 'w')
